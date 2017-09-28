@@ -9,19 +9,22 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootflat/2.0.4/css/bootflat.min.css">
     </head>
     <body>
+
+       <div id="wrapper">
         <div class="container">
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
                <a href="{{ logout_path() }}" class="btn btn-danger">logout</a>
 
-                <h2>Hi This is the Home Screen</h2>
+                <h2>This is your Home Page</h2>
 
             {% endif %}
 
             {% block body %}{% endblock %}
 
         </div>
+       </div>
 
-        {% block javascripts %}{% endblock %}
+           {% block javascripts %}{% endblock %}
     </body>
 </html>

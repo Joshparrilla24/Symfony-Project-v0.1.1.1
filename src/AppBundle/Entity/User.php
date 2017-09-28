@@ -30,7 +30,7 @@ class User implements UserInterface
      *
      * @ORM\Column(name="userrole", type="string", length=255)
      */
-    private $userrole;
+    private $userrole = "member";
     /**
      * @var string
      *
