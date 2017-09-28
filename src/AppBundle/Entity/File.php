@@ -14,6 +14,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class File
 {
+
+    private $file;
     /**
      * @var int
      *
@@ -74,6 +76,16 @@ class File
      */
      private $user;
 
+    /**
+     *
+     * @return mixed
+     */
+
+     public function getFile(){
+
+         return $this->file;
+
+     }
 
     /**
      * Get id

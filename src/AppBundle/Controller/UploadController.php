@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\File;
+use AppBundle\Form\FileUploadType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -15,18 +16,21 @@ class UploadController extends Controller
      */
     public function uploadAction(Request $request)
     {
+
+
         $formfile = new File();
-        $form = $this->createForm(FileType::class, $formfile);
+        $form = $this->createForm(FileUploadType::class, $formfile);
         $formfile->setUser($this->getUser());
         $form ->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
+        if($request->isMethod('POST')){
+        if($form->isSubmitted() && $form->isValid()) {
 
             $file = $formfile->getName();
 
-            $filename = md5(uniqid()).'.'.$file->guessExtension();
+            $filename = md5(uniqid()) . '.' . $file->guessExtension();
 
-            $file -> move(
+            $file->move(
 
                 $this->getParameter('File_Directory'),
                 $filename
@@ -36,13 +40,14 @@ class UploadController extends Controller
             $formfile->setName($file);
 
             return $this->redirect($this->generateUrl('file_upload'));
-
+        }
 
         }
 
         return $this->render('AppBundle:Upload:upload.html.twig', array(
             // ...
             'form' => $form->createView(),
+            'user' => $this->getUser(),
         ));
     }
 
