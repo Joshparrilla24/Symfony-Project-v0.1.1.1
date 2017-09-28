@@ -10,6 +10,11 @@
     </head>
     <body>
         <div class="container">
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+
+               <a href="{{ logout_path() }}" class="btn btn-danger">logout</a>
+
+            {% endif %}
 
             {% block body %}{% endblock %}
 

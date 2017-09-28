@@ -13,6 +13,9 @@ class LoginController extends Controller
 
     /**
      * @Route("/login", name="login")
+     * @param Request|null $request
+     * @param AuthenticationUtils $authenticationUtils
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function loginAction(Request $request=null, AuthenticationUtils $authenticationUtils)
     {
@@ -24,6 +27,13 @@ class LoginController extends Controller
             'errors'=> $errors,
             'username'=> $lastUserName,
         ));
+    }
+
+    /**
+     * @Route("/logout", name="logout")
+     */
+    public function logoutAction(){
+
     }
 
 }

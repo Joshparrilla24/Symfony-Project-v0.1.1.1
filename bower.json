@@ -1,0 +1,18 @@
+{
+  "name": "my_symfony_proj",
+  "homepage": "https://github.com/Joshparrilla24/Symfony-Project",
+  "authors": [
+    "joshparrilla23 <josh.parrilla24@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
