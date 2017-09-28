@@ -7,6 +7,9 @@ imports:
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
+    File_Directory: '%kernel.project_dir%/web/uploads/fileuploads'
+
+
 
 framework:
     #esi: ~
