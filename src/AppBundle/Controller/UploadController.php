@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\HttpFoundation\Request;
 
+
 class UploadController extends Controller
 {
     /**
@@ -26,7 +27,7 @@ class UploadController extends Controller
         if($request->isMethod('POST')){
         if($form->isSubmitted() && $form->isValid()) {
 
-            $file = $formfile->getName();
+            $file = $formfile->getBioFile();
 
             $filename = md5(uniqid()) . '.' . $file->guessExtension();
 
@@ -39,7 +40,7 @@ class UploadController extends Controller
 
             $formfile->setName($file);
 
-            return $this->redirect($this->generateUrl('file_upload'));
+            return $this->redirectToRoute('homepage');
         }
 
         }

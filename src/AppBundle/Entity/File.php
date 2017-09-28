@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\User;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File as Doc;
 
 /**
  * File
@@ -266,5 +267,18 @@ class File
         return $this->user;
 
     }
+
+    protected $bioFile;
+
+    public function setBioFile(Doc $file = null)
+    {
+        $this->bioFile = $file;
+    }
+
+    public function getBioFile()
+    {
+        return $this->bioFile;
+    }
+
 }
 
