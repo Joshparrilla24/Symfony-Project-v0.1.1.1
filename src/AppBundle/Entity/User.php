@@ -28,6 +28,12 @@ class User implements UserInterface
     /**
      * @var string
      *
+     * @ORM\Column(name="userrole", type="string", length=255)
+     */
+    private $userrole;
+    /**
+     * @var string
+     *
      * @ORM\Column(name="username", type="string", length=255)
      */
     private $username;
@@ -58,6 +64,20 @@ class User implements UserInterface
         return $this->id;
     }
 
+    /**
+     * Set userrole
+     *
+     * @param string $userrole
+     *
+     *
+     * @return string
+     */
+    public function setUserrole($userrole)
+    {
+        $this->userrole = $userrole;
+
+        return $this;
+    }
     /**
      * Set username
      *
