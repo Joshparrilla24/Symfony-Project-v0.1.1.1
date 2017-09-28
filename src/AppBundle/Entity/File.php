@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Entity\User;
 
 /**
  * File
@@ -63,12 +64,14 @@ class File
      */
     private $filemimetype;
 
+
     /**
-     * @var string
      *
-     * @ORM\Column(name="userid", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="files", cascade={"persist"}, fetch="EAGER")
+     * @ORM\JoinColumn(name="userid", referencedColumnName="id")
+     *
      */
-    private $userid;
+     private $user;
 
 
     /**
@@ -226,27 +229,29 @@ class File
     }
 
     /**
-     * Set userid
+     * Set user
      *
-     * @param string $userid
+     * @param \AppBundle\Entity\User $user
      *
      * @return File
      */
-    public function setUserid($userid)
+    public function setUser($user)
     {
-        $this->userid = $userid;
+        $this->user = $user;
 
         return $this;
     }
 
     /**
-     * Get userid
+     * Get User
      *
-     * @return string
+     * @return User
      */
-    public function getUserid()
+    public function getUser()
     {
-        return $this->userid;
+
+        return $this->user;
+
     }
 }
 

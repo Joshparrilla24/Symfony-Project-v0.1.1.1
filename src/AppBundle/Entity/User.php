@@ -78,6 +78,14 @@ class User implements UserInterface
 
         return $this;
     }
+
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\File", mappedBy="user")
+     *
+     */
+    private $files;
+
     /**
      * Set username
      *
@@ -175,6 +183,14 @@ class User implements UserInterface
         ];
 
 
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFiles()
+    {
+        return $this->files;
     }
 
     /**
