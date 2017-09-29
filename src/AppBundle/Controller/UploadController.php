@@ -34,7 +34,7 @@ class UploadController extends Controller
             //upload files and store in db
             $file = $formfile->getBioFile();
 
-            $filename = md5(uniqid()) . '.' . $file->guessExtension();
+            $filename = $file->getClientOriginalName();
             $mimeType = $file->getClientOriginalExtension();
             $filepath = $this->getParameter('File_Directory').'/'.$filename;
             $filesize = $file->getClientSize();
@@ -71,6 +71,15 @@ class UploadController extends Controller
 
 
         ));
+    }
+
+    /**
+     * @Route("/upload/{id}", name="upload-edit")
+     */
+    public function editAction($id){
+
+
+
     }
 
 }
