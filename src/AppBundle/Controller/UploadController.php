@@ -146,10 +146,31 @@ class UploadController extends Controller
     }
 
     /**
-     * @Route("")
+     * @Route("/{id}", name="file-delete")
      */
-    public function deleteAction(){
+    public function deleteAction($id){
 
+        $em = $this->getDoctrine()->getManager();
+        $userfile = $this->getDoctrine()
+            ->getRepository(File::class)
+            ->find($id);
+
+        if(!$userfile){
+
+            throw $this->createNotFoundException(
+
+                'No file found for id '.$id
+
+            );
+
+        }
+
+        $em ->remove($userfile);
+        $em ->flush();
+
+
+
+        return $this->redirectToRoute('homepage');
 
 
     }

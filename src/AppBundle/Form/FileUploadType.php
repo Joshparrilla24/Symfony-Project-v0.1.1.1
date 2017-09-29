@@ -32,6 +32,7 @@ class FileUploadType extends AbstractType
                 ]
 
             ])
+
             ;
     }
 
