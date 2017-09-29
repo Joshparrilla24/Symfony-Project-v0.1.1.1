@@ -11,11 +11,7 @@ security:
        db_provider:
            entity:
               class: AppBundle:User
-       in_memory:
-          memory:
-             users:
-               Admin:
-                 roles: 'ROLE_ADMIN'
+
 
 
     firewalls:

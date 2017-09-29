@@ -17,7 +17,12 @@ class DefaultController extends Controller
         $user = $this->getUser();
         $files = $this->getUser()->getFiles();
 
+        if($user->getUserrole() == 'admin')
+        {
 
+            return $this->redirectToRoute('admin-home') ;
+
+        }
 
         // replace this example code with whatever you need
         return $this->render('default/index.html.twig', [
@@ -38,6 +43,10 @@ class DefaultController extends Controller
     public function adminAction(Request $request)
     {
         $user = $this->getUser();
+
+        if ($user->getUserrole() != "admin"){
+            throw $this->createAccessDeniedException('You cannot access this page!');
+        }
 
 
         return $this->render('admin.html.twig',[
