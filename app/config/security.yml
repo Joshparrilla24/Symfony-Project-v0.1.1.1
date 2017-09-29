@@ -11,6 +11,11 @@ security:
        db_provider:
            entity:
               class: AppBundle:User
+       in_memory:
+          memory:
+             users:
+               Admin:
+                 roles: 'ROLE_ADMIN'
 
 
     firewalls:
@@ -33,3 +38,4 @@ security:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/admin, roles: ROLE_ADMIN }
