@@ -19,7 +19,7 @@
                     <tr id="navigation">
                         <td>{{ file.name }}</td>
                         <td>{{ file.filemimetype }}</td>
-                        <td><a href="#">edit</a>|<a href="#">delete</a> </td>
+                        <td><a href="{{ path('upload-edit',{'id': file.id}) }}">edit</a>|<a href="#">delete</a> </td>
                     </tr>
                     {% endfor %}
 

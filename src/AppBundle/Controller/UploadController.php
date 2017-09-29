@@ -76,49 +76,58 @@ class UploadController extends Controller
     /**
      * @Route("/upload/{id}", name="upload-edit")
      */
-    public function editAction($id){
-    //edit uploaded files
+    public function editAction($id, Request $request){
+        //edit uploaded files
         $em = $this->getDoctrine()->getManager();
 
-        $formfile = new File();
         $newdate = new \DateTime();
+        $file = $this->getDoctrine()
+            ->getRepository(File::class)
+            ->find($id);
 
-        $form = $this->createForm(FileUploadType::class, $formfile);
-        $formfile->setUser($this->getUser());
+        if (!$file) {
 
-        $form ->handleRequest($id);
+            throw $this->createNotFoundException(
 
+                'No file found for id '.$id
+            );
+        }
+
+        $form = $this->createForm(FileUploadType::class, $file);
+
+        // $form ->handleRequest($form);
 
         if($form->isSubmitted() && $form->isValid()) {
+
             //upload files and store in db
-            $file = $formfile->getBioFile();
 
-            $filename = $file->getClientOriginalName();
-            $mimeType = $file->getClientOriginalExtension();
-            $filepath = $this->getParameter('File_Directory').'/'.$filename;
-            $filesize = $file->getClientSize();
-            $creationdate = $file->getCreated();
+            if ($file){
+                $file = $formfile->getBioFile();
+
+                $filename = $file->getClientOriginalName();
+                $mimeType = $file->getClientOriginalExtension();
+                $filepath = $this->getParameter('File_Directory').'/'.$filename;
+                $filesize = $file->getClientSize();
+                $creationdate = $file->getCreated();
+
+                $formfile->setName($filename);
+                $formfile->setFilemimetype($mimeType);
+                $formfile->setFilepath($filepath);
+                $formfile->setFilesize($filesize);
+                $formfile->setCreated($creationdate);
+                $formfile->setUpdated($newdate);
+
+                $em -> persist($formfile);
+                $em -> flush();
 
 
+                $file->move(
 
-            $formfile->setName($filename);
-            $formfile->setFilemimetype($mimeType);
-            $formfile->setFilepath($filepath);
-            $formfile->setFilesize($filesize);
-            $formfile->setCreated($creationdate);
-            $formfile->setUpdated($newdate);
+                    $this->getParameter('File_Directory'),
+                    $filename
 
-            $em -> persist($formfile);
-            $em -> flush();
-
-
-            $file->move(
-
-                $this->getParameter('File_Directory'),
-                $filename
-
-            );
-
+                );
+            }
 
             return $this->redirectToRoute('homepage');
         }
