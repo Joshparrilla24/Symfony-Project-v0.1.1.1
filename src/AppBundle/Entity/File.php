@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\File\File as Doc;
 class File
 {
 
-    private $file;
+
     /**
      * @var int
      *
@@ -77,16 +77,6 @@ class File
      */
      private $user;
 
-    /**
-     *
-     * @return mixed
-     */
-
-     public function getFile(){
-
-         return $this->file;
-
-     }
 
     /**
      * Get id

@@ -22,7 +22,7 @@ class UploadController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $formfile = new File();
-        $creationdate = new DateTime();
+        $creationdate = new \DateTime();
 
         $form = $this->createForm(FileUploadType::class, $formfile);
         $formfile->setUser($this->getUser());
@@ -31,17 +31,22 @@ class UploadController extends Controller
 
 
         if($form->isSubmitted() && $form->isValid()) {
-            //upload files
+            //upload files and store in db
             $file = $formfile->getBioFile();
 
             $filename = md5(uniqid()) . '.' . $file->guessExtension();
+            $mimeType = $file->getClientOriginalExtension();
+            $filepath = $this->getParameter('File_Directory').'/'.$filename;
+            $filesize = $file->getClientSize();
+
 
             $formfile->setName($filename);
-            $formfile->setFilemimetype($file);
-            $formfile->setFilepath($file);
-            $formfile->setFilesize($file);
+            $formfile->setFilemimetype($mimeType);
+            $formfile->setFilepath($filepath);
+            $formfile->setFilesize($filesize);
             $formfile->setCreated($creationdate);
             $formfile->setUpdated($creationdate);
+
             $em -> persist($formfile);
             $em -> flush();
 
