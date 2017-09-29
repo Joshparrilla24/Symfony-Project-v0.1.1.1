@@ -5,10 +5,26 @@
 
         <div id="container">
             <div id="welcome">
-                <h2>{{ user.userrole }}</h2>
                 <h1><span> Hi, {{ user.username }} ! </span> </h1>
 
+                <br>
+                <table border="1">
 
+                <tr>
+                        <th>Username</th>
+                        <th>Email address</th>
+                        <th>Role</th>
+                        <th></th>
+                </tr>
+
+                    {% for user in userlist %}
+                <tr id="navigation">
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.userrole }}</td>
+                        <td><a href="#">update</a>|<a href="#">delete</a></td>
+                </tr>
+                    {% endfor %}
 
 
                 </table>

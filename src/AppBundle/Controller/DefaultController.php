@@ -48,10 +48,20 @@ class DefaultController extends Controller
             throw $this->createAccessDeniedException('You cannot access this page!');
         }
 
+        $em = $this->getDoctrine()->getManager();
+
+        $userdata = $this->getDoctrine()
+               ->getRepository(User::class)
+                ->findAll();
+
+
+
+
 
         return $this->render('admin.html.twig',[
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
             'user' => $user,
+            'userlist' => $userdata,
 
 
         ]);
