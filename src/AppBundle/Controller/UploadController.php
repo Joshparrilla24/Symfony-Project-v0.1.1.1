@@ -38,6 +38,7 @@ class UploadController extends Controller
             $mimeType = $file->getClientOriginalExtension();
             $filepath = $this->getParameter('File_Directory').'/'.$filename;
             $filesize = $file->getClientSize();
+            
 
 
             $formfile->setName($filename);
@@ -59,7 +60,6 @@ class UploadController extends Controller
             );
 
 
-
             return $this->redirectToRoute('homepage');
         }
 
@@ -68,6 +68,7 @@ class UploadController extends Controller
             // ...
             'form' => $form->createView(),
             'user' => $this->getUser(),
+
         ));
     }
 
