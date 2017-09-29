@@ -26,20 +26,25 @@ class UploadController extends Controller
 
         $form = $this->createForm(FileUploadType::class, $formfile);
         $formfile->setUser($this->getUser());
+
         $form ->handleRequest($request);
 
-        if($request->isMethod('POST')){
+
         if($form->isSubmitted() && $form->isValid()) {
             //upload files
             $file = $formfile->getBioFile();
 
-            $formfile->setName($file);
+            $filename = md5(uniqid()) . '.' . $file->guessExtension();
+
+            $formfile->setName($filename);
             $formfile->setFilemimetype($file);
             $formfile->setFilepath($file);
             $formfile->setFilesize($file);
             $formfile->setCreated($creationdate);
+            $formfile->setUpdated($creationdate);
+            $em -> persist($formfile);
+            $em -> flush();
 
-            $filename = md5(uniqid()) . '.' . $file->guessExtension();
 
             $file->move(
 
@@ -48,12 +53,11 @@ class UploadController extends Controller
 
             );
 
-            $formfile->setName($file);
+
 
             return $this->redirectToRoute('homepage');
         }
 
-        }
 
         return $this->render('AppBundle:Upload:upload.html.twig', array(
             // ...
