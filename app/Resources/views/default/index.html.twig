@@ -8,7 +8,11 @@
                 <a href="{{ path('upload') }}">Please upload a file now</a>
             </div>
             <div>
-
+                <ul id="navigation">
+                    {% for file in files %}
+                        <li>{{ file.filepath }}</li>
+                    {% endfor %}
+                </ul>
             </div>
             <div id="status">
                 <p>
