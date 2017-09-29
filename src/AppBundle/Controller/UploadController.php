@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints\DateTime;
 
 
+
 class UploadController extends Controller
 {
     /**
@@ -76,16 +77,18 @@ class UploadController extends Controller
     /**
      * @Route("/upload/{id}", name="upload-edit")
      */
+
     public function editAction($id, Request $request){
         //edit uploaded files
         $em = $this->getDoctrine()->getManager();
 
         $newdate = new \DateTime();
-        $file = $this->getDoctrine()
+
+        $formfile = $this->getDoctrine()
             ->getRepository(File::class)
             ->find($id);
 
-        if (!$file) {
+        if (!$formfile) {
 
             throw $this->createNotFoundException(
 
@@ -93,22 +96,22 @@ class UploadController extends Controller
             );
         }
 
-        $form = $this->createForm(FileUploadType::class, $file);
+        $form = $this->createForm(FileUploadType::class, $formfile);
 
-        // $form ->handleRequest($form);
+        $form ->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
 
             //upload files and store in db
 
-            if ($file){
+            if ($formfile){
                 $file = $formfile->getBioFile();
 
                 $filename = $file->getClientOriginalName();
                 $mimeType = $file->getClientOriginalExtension();
                 $filepath = $this->getParameter('File_Directory').'/'.$filename;
                 $filesize = $file->getClientSize();
-                $creationdate = $file->getCreated();
+                $creationdate = $formfile->getCreated();
 
                 $formfile->setName($filename);
                 $formfile->setFilemimetype($mimeType);
@@ -139,6 +142,15 @@ class UploadController extends Controller
 
 
         ));
+
+    }
+
+    /**
+     * @Route("")
+     */
+    public function deleteAction(){
+
+
 
     }
 

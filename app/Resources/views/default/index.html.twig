@@ -11,6 +11,8 @@
                 <table border="1">
                     <tr>
                         <th>File Name</th>
+                        <th>Created</th>
+                        <th>Modified</th>
                         <th>File Type</th>
                         <th>Action</th>
                     </tr>
@@ -18,6 +20,8 @@
                     {% for file in files %}
                     <tr id="navigation">
                         <td>{{ file.name }}</td>
+                        <td>{{ file.created|date('Y-m-d H:i:s') }}</td>
+                        <td>{{ file.updated|date('Y-m-d H:i:s') }}</td>
                         <td>{{ file.filemimetype }}</td>
                         <td><a href="{{ path('upload-edit',{'id': file.id}) }}">edit</a>|<a href="#">delete</a> </td>
                     </tr>
