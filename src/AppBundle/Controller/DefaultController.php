@@ -14,9 +14,7 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         $user = $this->getUser();
-        $files = $this->getDoctrine()
-            ->getRepository(File::class)
-            ->findAll();
+        $files = $this->getUser()->getFiles();
 
         // replace this example code with whatever you need
         return $this->render('default/index.html.twig', [

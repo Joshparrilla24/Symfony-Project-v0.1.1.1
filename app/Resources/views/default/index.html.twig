@@ -8,11 +8,22 @@
                 <a href="{{ path('upload') }}">Please upload a file now</a>
             </div>
             <div>
-                <ul id="navigation">
+                <table border="1">
+                    <tr>
+                        <th>File Name</th>
+                        <th>File Type</th>
+                        <th>Action</th>
+                    </tr>
+
                     {% for file in files %}
-                        <li>{{ file.filepath }}</li>
+                    <tr id="navigation">
+                        <td>{{ file.name }}</td>
+                        <td>{{ file.filemimetype }}</td>
+                        <td><a href="#">edit</a>|<a href="#">delete</a> </td>
+                    </tr>
                     {% endfor %}
-                </ul>
+
+                </table>
             </div>
             <div id="status">
                 <p>
