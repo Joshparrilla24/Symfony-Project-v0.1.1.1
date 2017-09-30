@@ -52,7 +52,11 @@ class DefaultController extends Controller
 
         $userdata = $this->getDoctrine()
                ->getRepository(User::class)
-                ->findAll();
+                ->findBy([
+
+                    'userrole' => 'member'
+
+                ]);
 
 
 
