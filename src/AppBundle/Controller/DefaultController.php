@@ -45,7 +45,13 @@ class DefaultController extends Controller
         $user = $this->getUser();
 
         if ($user->getUserrole() != "admin"){
-            throw $this->createAccessDeniedException('You cannot access this page!');
+
+            return $this->render('notfound.html.twig', [
+
+                'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR
+
+            ]);
+           // throw $this->createAccessDeniedException('You cannot access this page!');
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -63,6 +69,7 @@ class DefaultController extends Controller
 
 
         return $this->render('admin.html.twig',[
+
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
             'user' => $user,
             'userlist' => $userdata,
@@ -71,5 +78,6 @@ class DefaultController extends Controller
         ]);
 
     }
+
 
 }

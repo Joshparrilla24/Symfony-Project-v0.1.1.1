@@ -150,6 +150,7 @@ class UploadController extends Controller
      */
     public function deleteAction($id){
 
+        //find id in db
         $em = $this->getDoctrine()->getManager();
         $userfile = $this->getDoctrine()
             ->getRepository(File::class)
