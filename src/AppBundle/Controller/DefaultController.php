@@ -79,5 +79,42 @@ class DefaultController extends Controller
 
     }
 
+    /**
+     *
+     * @Route("/admin/{id}", name="edit-user-info")
+     * @param Request $request
+     * @param $id
+     * @return array
+     */
+    public function editUserInfoAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->find($id);
+
+
+        $form = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->find($id);
+
+
+        $form->handleRequest($request);
+
+
+        if($form->isValid())
+        {
+
+            $em ->persist($form);
+            $em ->flush();
+
+        }
+        return [
+            'form' => $form->createView(),
+            'user' => $user,
+        ];
+    }
+
 
 }
