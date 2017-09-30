@@ -2,33 +2,53 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 Class UserEditType extends AbstractType
 {
 
 
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
             $builder
                 ->add('username', TextType::class)
                 ->add('email', EmailType::class)
-                ->add('userrole', 'choices', [
+                ->add('userrole', TextType::class)
+                ->add('submit', SubmitType::class,
+                    [
 
-                    'ROLE_ADMIN' => 'admin',
-                    'ROLE_USER' => 'member',
-                    'expandable'=> true,
-                    'multiple' => true,
+                        'attr' => [
+
+                            'class' => 'btn btn-success pull-right'
+
+                        ]
+
+                    ]);
 
 
-                ]);
 
 
 
+    }
 
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
 
+            'data_class' => User::class
+
+        ]);
     }
 
 

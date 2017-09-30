@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Controller;
 use AppBundle\Entity\User;
+use AppBundle\Form\UserEditType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -84,7 +85,7 @@ class DefaultController extends Controller
      * @Route("/admin/{id}", name="edit-user-info")
      * @param Request $request
      * @param $id
-     * @return array
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function editUserInfoAction(Request $request, $id)
     {
@@ -95,9 +96,7 @@ class DefaultController extends Controller
             ->find($id);
 
 
-        $form = $this->getDoctrine()
-            ->getRepository(User::class)
-            ->find($id);
+        $form = $this->createForm(UserEditType::class, $user);
 
 
         $form->handleRequest($request);
@@ -110,10 +109,13 @@ class DefaultController extends Controller
             $em ->flush();
 
         }
-        return [
+        return $this->render('AppBundle:Update:updateusers.html.twig', array(
+            // ...
             'form' => $form->createView(),
-            'user' => $user,
-        ];
+            'user' => $this->getUser(),
+
+
+        ));
     }
 
 

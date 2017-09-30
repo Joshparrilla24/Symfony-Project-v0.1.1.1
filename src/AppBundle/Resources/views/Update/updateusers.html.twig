@@ -1,0 +1,18 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}AppBundle:Update:update{% endblock %}
+
+{% block body %}
+    <h4>Hi, {{ user.username }}</h4>
+    <h3></h3>
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="text-center">Update User info</h3>
+        </div>
+        <div class="panel-body">
+            {{ form(form) }}
+        </div>
+
+    </div>
+
+{% endblock %}
