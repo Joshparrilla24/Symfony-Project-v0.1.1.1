@@ -96,17 +96,45 @@ class DefaultController extends Controller
             ->find($id);
 
 
+        if (!$user) {
+
+            throw $this->createNotFoundException(
+
+                'No user found for id '.$id
+            );
+        }
+
+
         $form = $this->createForm(UserEditType::class, $user);
 
 
         $form->handleRequest($request);
 
 
-        if($form->isValid())
+        if($form->isSubmitted() && $form->isValid())
         {
 
-            $em ->persist($form);
-            $em ->flush();
+            //update db
+            if($user){
+
+                $username = $user->getUsername();
+                $email = $user->getEmail();
+                $role = $user->getUserrole();
+
+                $user->setUsername($username);
+                $user->setEmail($email);
+                $user->setUserrole($role);
+
+                $em->persist($user);
+                $em->flush();
+
+
+
+            }
+
+            return $this->redirectToRoute('admin-home');
+
+
 
         }
         return $this->render('AppBundle:Update:updateusers.html.twig', array(
@@ -116,6 +144,46 @@ class DefaultController extends Controller
 
 
         ));
+    }
+
+    /**
+     *
+     * @Route("/userdelete/{id}", name="delete-user")
+     * @param $id
+     */
+    public function deleteUserAction($id)
+
+    {
+
+        //find passed id in db
+        //find id in db
+        $em = $this->getDoctrine()->getManager();
+
+        $userid = $this->getDoctrine()
+
+                ->getRepository(User::class)
+                ->find($id);
+
+        if(!$userid){
+
+            throw $this->createNotFoundException(
+
+                'No file found for id '.$id
+
+            );
+
+        }
+
+        $em ->remove($userid);
+        $em ->flush();
+
+
+
+        return $this->redirectToRoute('admin-home');
+
+
+
+
     }
 
 
