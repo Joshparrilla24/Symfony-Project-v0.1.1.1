@@ -156,6 +156,13 @@ class UploadController extends Controller
             ->getRepository(File::class)
             ->find($id);
 
+        $file=$this->getAbsolutePath();
+
+        if($file){
+
+
+        }
+
         if(!$userfile){
 
             throw $this->createNotFoundException(
@@ -168,6 +175,15 @@ class UploadController extends Controller
 
         $em ->remove($userfile);
         $em ->flush();
+
+
+        $file=$this->getAbsolutePath();
+
+        if($file){
+
+          unlink($file);
+
+        }
 
 
 

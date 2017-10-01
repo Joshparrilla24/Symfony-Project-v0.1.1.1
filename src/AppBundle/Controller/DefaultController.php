@@ -89,6 +89,8 @@ class DefaultController extends Controller
      */
     public function editUserInfoAction(Request $request, $id)
     {
+
+        //query to search the id passed from admin page
         $em = $this->getDoctrine()->getManager();
 
         $user = $this->getDoctrine()
@@ -96,6 +98,7 @@ class DefaultController extends Controller
             ->find($id);
 
 
+        //error handler
         if (!$user) {
 
             throw $this->createNotFoundException(
@@ -104,7 +107,7 @@ class DefaultController extends Controller
             );
         }
 
-
+        //builds form to edit user values
         $form = $this->createForm(UserEditType::class, $user);
 
 
