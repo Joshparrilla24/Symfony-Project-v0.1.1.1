@@ -1,4 +1,4 @@
-my_symfony_proj
+symfony_crud
 ===============
 
 A Symfony project created on September 27, 2017, 7:58 am.
